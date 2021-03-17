@@ -83,7 +83,7 @@ bool events::out::pingreply(gameupdatepacket_t* packet) {
     packet->m_vec2_x = 1000.f;  //gravity
     packet->m_vec2_y = 250.f;   //move speed
     packet->m_vec_x = 64.f;     //punch range
-    packet->m_vec_y = 64.f;     //build range
+    packet->m_vec_y = 170.f;     //build range
     packet->m_jump_amount = 0;  //for example unlim jumps set it to high which causes ban
     packet->m_player_flags = 0; //effect flags. good to have as 0 if using mod noclip, or etc.
     return false;
