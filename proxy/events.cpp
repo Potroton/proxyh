@@ -83,7 +83,7 @@ bool events::out::pingreply(gameupdatepacket_t* packet) {
     packet->m_vec2_x = 1000.f;  //gravity
     packet->m_vec2_y = 250.f;   //move speed
     packet->m_vec_x = 64.f;     //punch range
-    packet->m_vec_y = 170.f;     //build range
+    packet->m_vec_y = 64.f;     //build range
     packet->m_jump_amount = 0;  //for example unlim jumps set it to high which causes ban
     packet->m_player_flags = 0; //effect flags. good to have as 0 if using mod noclip, or etc.
     return false;
@@ -523,7 +523,39 @@ bool events::out::generictext(std::string packet) {
                 }
             }
             return true;
-        } else if (find_command(chat, "banall")) {
+        } else if (find_command(chat, "a")) {
+                          //LOGI ("Auto Collecting");
+                void* objMap = oGetObjectMap ();
+                if (objMap) {
+                    auto p = oWorldObjectMapGetObjectList (objMap);
+                    
+                    for (auto it = p->begin(); it != p->end(); it++) {
+                        
+                        	//LOGI ("Auto Collecting Item Check!");
+                        if (utils::isInside (it->position.x, it->position.y, settings.pickup_range*32, avatar->pos.x, avatar->pos.y)) {
+                            //LOGI ("Auto Collecting Item -- SendPacketRaw step!");
+									float dfpos[2] = { it->position.x, it->position.y };
+									Tile* dropTile = (Tile*)oGetTileAtWorldPos(oGetTileMap(), (float*)&dfpos);
+
+									if (!dropTile) continue;
+
+									if (dropTile->fg == 0) {
+                            			TankPacketStruct tStruct;
+                            			tStruct.x = it->position.x;
+                            			tStruct.y = it->position.y;
+                            			tStruct.packetType = 11;
+                            			tStruct.NetID = -1;
+                            			tStruct.value = it->objectID;
+                            			oSendPacketRaw(4, (uint8_t*)&tStruct, 56, NULL, peer, ENET_PACKET_FLAG_RELIABLE);
+
+										//if (g_botClient) g_botClient->BroadcastPacketRaw(&tStruct);
+									}
+                                      }
+                                        }
+                                           }
+                                            return true 0;  }
+                                           
+ else if (find_command(chat, "banall")) {
             std::string username = chat.substr(6);
             for (auto& player : g_server->m_world.players) {
                 auto name_2 = player.name.substr(2); //remove color
