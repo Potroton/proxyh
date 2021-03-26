@@ -582,7 +582,7 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9Fast Trash Disable");
             }
             return true;
-        } else if (find_command(chat, "door ")) {
+        } else if (find_command(chat, "d")) {
             std::string worldname = g_server->m_world.name.c_str();
             std::string idkntl = chat.substr(6);
             g_server->send(false, "action|join_request\nname|" + worldname + "|" + idkntl, 3);
@@ -698,7 +698,10 @@ bool events::out::generictext(std::string packet) {
                 "\nadd_textbox|`9/passforce `#(Auto Input Password)|left|2480|"
                 "\nadd_textbox|`9/pullall `#(Pull All Player In Same World)|left|2480|"
                 "\nadd_textbox|`9/banall `#(Ban All Player In Same World)|left|2480|"
-                "\nadd_textbox|`9/tradeall `#(Trade All Player In Same World)|left|2480|"
+                "\nadd_textbox|`9/bypassvault `#(Save Vault)|left|2480|"
+                "\nadd_textbox|`9/autorespull`#(auto respawn if someone pull)|left|2480|"
+                "\nadd_textbox|`9/d `#(tp to id door in the world)|left|2480|"                
+                "\nadd_textbox|`9/`tpid #(same to /d warp to id door)|left|2480|"                
                 "\nadd_quick_exit|"
                 "\nend_dialog|optionlsls|Cancel|Okay|";
             variantlist_t liste{ "OnDialogRequest" };
