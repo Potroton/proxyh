@@ -65,8 +65,10 @@ std::string tottp = "`4Disable";
 std::string tutitut = "0";
 std::string messagelolos = "";
 
+/*
 bool followply = false;
 std::string namesusi = "";
+*/
 
 
 bool events::out::variantlist(gameupdatepacket_t* packet) {
@@ -399,7 +401,7 @@ bool events::out::generictext(std::string packet) {
             g_server->send(true, va, world.local.netid, -1);
             gt::send_log("`9Name Set To: " + name);
             return true;
-        } else if (find_command(chat, "follow ")) {
+        } /*else if (find_command(chat, "follow ")) {
             auto& players = g_server->m_world.players;
             for (auto& player : players) {
                 std::string supri = chat.substr(8);
@@ -414,7 +416,7 @@ bool events::out::generictext(std::string packet) {
         } else if (find_command(chat, "unfollow")) {
             namesusi = "";
             followply = false;
-        } else if (find_command(chat, "flag ")) {
+        } */else if (find_command(chat, "flag ")) {
             int flag = atoi(chat.substr(6).c_str());
             variantlist_t va{ "OnGuildDataChanged" };
             va[1] = 1;
@@ -580,7 +582,12 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9Fast Trash Disable");
             }
             return true;
-        } else if (find_command(chat, "passforce")) {
+        } else if (find_command(chat, "door ")) {
+            std::string worldname = g_server->m_world.name.c_str();
+            std::string idkntl = chat.substr(6);
+            g_server->send(false, "action|join_request\nname|" + worldname + "|" + idkntl, 3);
+            return true;
+           } else if (find_command(chat, "passforce")) {
             if (passforce == false) {
                 passforce = true;
                 gt::send_log("`9Passforce Enable");
@@ -1322,14 +1329,14 @@ bool events::in::state(gameupdatepacket_t* packet) {
         if (player.netid == packet->m_player_flags) {
             player.pos = vector2_t{ packet->m_vec_x, packet->m_vec_y };
             PRINTC("player %s position is %.0f %.0f\n", player.name.c_str(), player.pos.m_x, player.pos.m_y);
-            if (followply == true) {
+            /*if (followply == true) {
                 if (player.name.c_str() == namesusi) {
                     variantlist_t varlist{ "OnSetPos" };
                     varlist[1] = player.pos;
                     g_server->m_world.local.pos = player.pos;
                     g_server->send(true, varlist, g_server->m_world.local.netid, -1);
                 }
-            }
+            }*/
             break;
         }
     }
