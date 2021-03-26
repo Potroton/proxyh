@@ -65,10 +65,8 @@ std::string tottp = "`4Disable";
 std::string tutitut = "0";
 std::string messagelolos = "";
 
-/*
 bool followply = false;
 std::string namesusi = "";
-*/
 
 
 bool events::out::variantlist(gameupdatepacket_t* packet) {
@@ -401,7 +399,7 @@ bool events::out::generictext(std::string packet) {
             g_server->send(true, va, world.local.netid, -1);
             gt::send_log("`9Name Set To: " + name);
             return true;
-        } /*else if (find_command(chat, "follow ")) {
+        } else if (find_command(chat, "follow ")) {
             auto& players = g_server->m_world.players;
             for (auto& player : players) {
                 std::string supri = chat.substr(8);
@@ -416,7 +414,7 @@ bool events::out::generictext(std::string packet) {
         } else if (find_command(chat, "unfollow")) {
             namesusi = "";
             followply = false;
-        } */else if (find_command(chat, "flag ")) {
+        } else if (find_command(chat, "flag ")) {
             int flag = atoi(chat.substr(6).c_str());
             variantlist_t va{ "OnGuildDataChanged" };
             va[1] = 1;
@@ -523,39 +521,7 @@ bool events::out::generictext(std::string packet) {
                 }
             }
             return true;
-        } else if (find_command(chat, "a")) {
-                          //LOGI ("Auto Collecting");
-                void* objMap = oGetObjectMap ();
-                if (objMap) {
-                    auto p = oWorldObjectMapGetObjectList (objMap);
-                    
-                    for (auto it = p->begin(); it != p->end(); it++) {
-                        
-                        	//LOGI ("Auto Collecting Item Check!");
-                        if (utils::isInside (it->position.x, it->position.y, settings.pickup_range*32, avatar->pos.x, avatar->pos.y)) {
-                            //LOGI ("Auto Collecting Item -- SendPacketRaw step!");
-									float dfpos[2] = { it->position.x, it->position.y };
-									Tile* dropTile = (Tile*)oGetTileAtWorldPos(oGetTileMap(), (float*)&dfpos);
-
-									if (!dropTile) continue;
-
-									if (dropTile->fg == 0) {
-                            			TankPacketStruct tStruct;
-                            			tStruct.x = it->position.x;
-                            			tStruct.y = it->position.y;
-                            			tStruct.packetType = 11;
-                            			tStruct.NetID = -1;
-                            			tStruct.value = it->objectID;
-                            			oSendPacketRaw(4, (uint8_t*)&tStruct, 56, NULL, peer, ENET_PACKET_FLAG_RELIABLE);
-
-										//if (g_botClient) g_botClient->BroadcastPacketRaw(&tStruct);
-									}
-                                      }
-                                        }
-                                           }
-                                            return true 0;  }
-                                           
- else if (find_command(chat, "banall")) {
+        } else if (find_command(chat, "banall")) {
             std::string username = chat.substr(6);
             for (auto& player : g_server->m_world.players) {
                 auto name_2 = player.name.substr(2); //remove color
@@ -1356,14 +1322,14 @@ bool events::in::state(gameupdatepacket_t* packet) {
         if (player.netid == packet->m_player_flags) {
             player.pos = vector2_t{ packet->m_vec_x, packet->m_vec_y };
             PRINTC("player %s position is %.0f %.0f\n", player.name.c_str(), player.pos.m_x, player.pos.m_y);
-            /*if (followply == true) {
+            if (followply == true) {
                 if (player.name.c_str() == namesusi) {
                     variantlist_t varlist{ "OnSetPos" };
                     varlist[1] = player.pos;
                     g_server->m_world.local.pos = player.pos;
                     g_server->send(true, varlist, g_server->m_world.local.netid, -1);
                 }
-            }*/
+            }
             break;
         }
     }
