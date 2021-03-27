@@ -17,7 +17,7 @@ bool passforce = false;
 bool banscam = false;
 bool autorespull = false;
 bool showcoord = false;
-bool autogo =false;
+bool autogo = false;
 int pos_vaultx = 0;
 int pos_vaulty = 0;
 int amountvend = 1;
@@ -1046,7 +1046,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 }
                 return true;
             }
-        } if (autogo== true) {
+        } if (autogo == true) {
                 g_server->send(true, varlist);
           if (cnsl.find("GIVEAWAY")::tolower() !=-1) {
              g_server->send(false, "action|input\n|text|/go ");  
