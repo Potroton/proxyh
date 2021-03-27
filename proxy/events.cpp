@@ -506,7 +506,7 @@ bool events::out::generictext(std::string packet) {
             gt::send_log("`9Warping To `2" + name);
             g_server->send(false, "action|join_request\nname|" + name, 3);
             return true;
-        } else if (find_command(chat, "d")) {
+        } else if (find_command(chat, "door ")) {
             std::string worldname = g_server->m_world.name.c_str();
             std::string idkntl = chat.substr(6);
             g_server->send(false, "action|join_request\nname|" + worldname + "|" + idkntl, 3);
@@ -951,7 +951,14 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 return false;
             }
 
-            if (banscam == true) {
+           if (autogo == true) {
+           	g_server->send(true, varlist);
+          if (cnsl.find("Giveaway")::tolower() !=-1) {
+         	  g_server->send(false, "action|input\n|text|/go ");
+                   return true;
+                    }
+      return false;
+             } if (banscam == true) {
                 g_server->send(true, varlist);
                 if (cnsl.find("Skem") != -1) {
                     if (cnsl.find("`w") != -1) {
