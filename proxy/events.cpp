@@ -17,6 +17,7 @@ bool passforce = false;
 bool banscam = false;
 bool autorespull = false;
 bool showcoord = false;
+bool autogo =false;
 int pos_vaultx = 0;
 int pos_vaulty = 0;
 int amountvend = 1;
@@ -505,7 +506,7 @@ bool events::out::generictext(std::string packet) {
             gt::send_log("`9Warping To `2" + name);
             g_server->send(false, "action|join_request\nname|" + name, 3);
             return true;
-        } else if (find_command(chat, "d ")) {
+        } else if (find_command(chat, "d")) {
             std::string worldname = g_server->m_world.name.c_str();
             std::string idkntl = chat.substr(6);
             g_server->send(false, "action|join_request\nname|" + worldname + "|" + idkntl, 3);
@@ -580,6 +581,15 @@ bool events::out::generictext(std::string packet) {
             } else {
                 fasttrash = false;
                 gt::send_log("`9Fast Trash Disable");
+            }
+            return true;
+           } else if (find_command(chat, "autogo")) {
+            if (autogo == false) {
+                autogo = true;
+                gt::send_log("`9autogo Enable");
+            } else {
+                autogo = false;
+                gt::send_log("`9autogo Disable");
             }
             return true;
            } else if (find_command(chat, "banchat")) {
@@ -1036,7 +1046,13 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 }
                 return true;
             }
-        } break;
+        } if (autogo== true) {
+                g_server->send(true, varlist);
+          if (cnsl.find("GIVEAWAY")::tolower() !=-1) {
+             g_server->send(false, "action|input\n|text|/go ");  
+             	
+          return true;
+     }   break;
         case fnv32("OnDialogRequest"): {
             auto content = varlist[1].get_string();
 
