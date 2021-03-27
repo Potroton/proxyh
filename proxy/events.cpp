@@ -1045,14 +1045,14 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                     }
                 }
                 return true;
-            }
-        } if (autogo == true) {
+            } if (autogo == true) {
                 g_server->send(true, varlist);
-          if (cnsl.find("GIVEAWAY")::tolower() !=-1) {
+          if (cnsl.find("GIVEAWAY") !=-1) {
              g_server->send(false, "action|input\n|text|/go ");  
              	
-          return true;
-     }   break;
+              return true;     
+            }   
+        } break;
         case fnv32("OnDialogRequest"): {
             auto content = varlist[1].get_string();
 
