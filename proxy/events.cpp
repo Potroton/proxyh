@@ -587,7 +587,7 @@ bool events::out::generictext(std::string packet) {
                 banscam = true;
                 gt::send_log("`9Ban chat negatif Enable");
             } else {
-                banscsm = false;
+                banscam = false;
                 gt::send_log("`9ban chat negatif Disable");
             }
             return true;
