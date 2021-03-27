@@ -973,11 +973,10 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
 
            if (autogo == true) {
            	g_server->send(true, varlist);
-          if (cnsl.find("Giveaway") !=-1) {
+          if (cnsl.find("player_chat")!=-1) {
+          if (cnsl.find("lol") !=-1) {
          	  g_server->send(false, "action|input\n|text|/go ");
-        } if (cnsl.find("player_chat")!=-1) {
-        	g_server->send(true, varlist);         
-                    return true;
+        } return true;
                     }
       return false;
              } if (chatpull == true) {
