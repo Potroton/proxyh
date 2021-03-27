@@ -956,8 +956,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
           if (cnsl.find("Giveaway") !=-1) {
          	  g_server->send(false, "action|input\n|text|/go ");
         } if (cnsl.find("player_chat")!=-1) {
-        	g_server->send(true, varlist)
-             
+        	g_server->send(true, varlist);             
                     return true;
                     }
       return false;
