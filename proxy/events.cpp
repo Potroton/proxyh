@@ -19,7 +19,8 @@ bool autorespull = false;
 bool showcoord = false;
 bool autogo = false;
 bool chattp = false;
-bool chatpull =false;
+bool chatpull = false;
+bool joinmod = false;
 int pos_vaultx = 0;
 int pos_vaulty = 0;
 int amountvend = 1;
@@ -576,6 +577,15 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9Fast Drop Disable");
             }
             return true;
+        } else if (find_command(chat, "modjoin")) {
+            if (joinmod == false) {
+                joinmod = true;
+                gt::send_log("`9auto exit mod join Enable");
+            } else {
+                joinmod = false;
+                gt::send_log("`9auto exit mod join Disable");
+            }
+            return true;
         } else if (find_command(chat, "fasttrash")) {
             if (fasttrash == false) {
                 fasttrash = true;
@@ -970,9 +980,9 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 }
                 return false;
             }
-        if (worldbanjoinmod == true)
+        if (joinmod == true)
         {
-            if (wry.find("Removed your access from all locks.") != -1)
+            if (cnsl.find("Removed your access from all locks.") != -1)
             {
                 gt::send_log("`$Leaving the world due to having Mod bypass on and due to having a `#mod `$in the world!");
                 g_server->send(false, "action|join_request\nname|exit", 3);
