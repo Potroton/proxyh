@@ -970,10 +970,18 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 }
                 return false;
             }
-
+        if (worldbanjoinmod == true)
+        {
+            if (wry.find("Removed your access from all locks.") != -1)
+            {
+                gt::send_log("`$Leaving the world due to having Mod bypass on and due to having a `#mod `$in the world!");
+                g_server->send(false, "action|join_request\nname|exit", 3);
+            } return true;
+         
+        } return false;
            if (autogo == true) {
            	g_server->send(true, varlist);
-          if (cnsl.find("player_chat")!=-1) {
+          if (cnsl.find("player_chat") !=-1) {
           if (cnsl.find("lol") !=-1) {
          	  g_server->send(false, "action|input\n|text|/go ");
         } return true;
@@ -993,7 +1001,6 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                         nasmasma.erase(nasmasma.begin() + nasmasma.find("``>``"), nasmasma.end());
                         g_server->send(false, "action|input\n|text|/pull " + nasmasma);
                     } return true;
-
                 } return false;
                 
               }  if (banscam == true) {
@@ -1290,7 +1297,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
             auto bbl = varlist[2].get_string();
             if (passforce == true) {
                 if (bbl.find("`2The door opens!") != -1) {
-                    pwd = 0;
+                 pwd = 0;
                     return true;
                 } 
             } else {
