@@ -1372,7 +1372,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 ply.netid = var.get_int("netID");
                 if (meme.find("type|local") != -1) {
                     //set mod state to 1 (allows infinite zooming, this doesnt ban cuz its only the zoom not the actual long punch)
-                    var.find("mstate")->m_values[0] = "1";
+                    var.find("mstate")->m_values[0] = "0";
                     g_server->m_world.local = ply;
                 }
                 
