@@ -1401,7 +1401,7 @@ if (wspam == true) {
                 if (var.find("invis")->m_value != "1") {
                     ply.name = name->m_value;
                     ply.country = var.get("country");
-                    name->m_values[0] += " `![ >"`4 + netid->m_value + "`!< ]``";
+                    //name->m_values[0] +=" `!["`4+ netid->m_value + "`!]``";
                     auto pos = var.find("posXY");
                     if (pos && pos->m_values.size() >= 2) {
                         auto x = atoi(pos->m_values[0].c_str());
