@@ -617,8 +617,8 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9Wrench Spam Status = `4Non Active");
             }
             return true;
-           } else if (find_command(chat, "settext")) {
-         textmsg = chat.substr(7);
+           } else if (find_command(chat, "settext ")) {
+         textmsg = chat.substr(8);
          gt::send_log("Text Msg Spam Status : `2Active"); 
          gt::send_log("Text =`c"+ textmsg); 
        return true;
