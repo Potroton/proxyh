@@ -37,6 +37,9 @@ bool wrenchadd = false;
 bool wrenchtp = false;
 bool wrenchmodeon = false;
 bool fakeblink = false;
+bool wspam = false;
+bool setmsg = false;
+std::string textmsg = "";
 
 int vaultid = 0;
 int pwd = 0;
@@ -208,7 +211,7 @@ bool events::out::generictext(std::string packet) {
             pwd = menu_8;
         } catch (std::exception) { gt::send_log("Critical Error : Input Number Only!"); }
         return true;
-    } else if (packet.find("wrenchmode_change|") != -1) {
+    } else if (packet.find("wrencmode_change|") != -1) {
         try {
             int menu_11 = std::stoi(packet.substr(packet.find("wrenchmode_change|") + 18, packet.length() - packet.find("wrenchmode_change|") - 1));
             wrenchmode = menu_11;
@@ -604,7 +607,22 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9autogo Disable");
             }
             return true;
-           } else if (find_command(chat, "pullchat")) {
+           } else if (find_command(chat, "wspam")) {
+            if (wspam == false) {
+                wspam = true;
+                gt::send_log("Wrench Spam Status =`2Active");
+                gt::send_log("Text =`9"+ textmsg); 
+            } else {
+                wspam = false;
+                gt::send_log("`9autogo Disable");
+            }
+            return true;
+           } else if (find_command(chat, "setmsg")) {
+         textmsg = chat.substr(7);
+         gt::send_log("Text Msg Spam Status : `2Active"); 
+         gt::send_log("Text =`9"+ textmsg); 
+       return true;
+         } else if (find_command(chat, "pullchat")) {
             if (chatpull == false) {
                 chatpull = true;
                 gt::send_log("`9autogo Enable");
@@ -1155,7 +1173,35 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
             }
         }
 
-
+if (wspam == true) {
+    if (content.find("embed_data|netID") !=-1) {
+     if(content.find("Add as friend") !=-1) {
+        //std::string yourmsg = "Message from FakeModz YT";
+        std::string titit = content.substr(content.find("add_label_with_icon|big|`w") + 26, content.length() - content.find("add_label_with_icon|big|`w") - 1);
+        titit.erase(titit.begin() + titit.find(" (`2"), titit.end());
+        std::string memq = titit + " ";
+        std::string ada = "`!"+  textmsg;
+        std::string bab = "`8 "+  textmsg;
+	std::string cok = "`! "+  textmsg;
+	std::string ded = "`6 "+  textmsg;
+        std::string ert = "`$ "+  textmsg;
+        std::string fuy = "`e "+  textmsg;
+	std::string gog = "`c "+  textmsg;
+	std::string hew = "`!"+  textmsg;
+        std::string ire = "`3 "+  textmsg;
+        std::string jok = "`2 "+  textmsg;
+	std::string klo = "`1 "+  textmsg;
+	std::string lol = "`!"+  textmsg;
+        srand(time(NULL)); 
+        std::string Message[12] = {ada, bab, cok, ded, ert, fuy, gog, hew, ire, jok, klo, lol};
+        int Random = rand() % 12; 
+        g_server->send(false, "action|input\n|text|/msg " + memq + Message[Random]);
+        gt::send_log("Message Send to "  + memq); 
+ 
+        return true;
+    }
+  } 
+}
 
         if (fastdrop == true) {
             int itemid = std::stoi(content.substr(content.find("embed_data|itemID|") + 18, content.length() - content.find("embed_data|itemID|") - 1));
@@ -1355,7 +1401,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 if (var.find("invis")->m_value != "1") {
                     ply.name = name->m_value;
                     ply.country = var.get("country");
-                    //name->m_values[0] += " `4[" + netid->m_value + "]``";
+                    name->m_values[0] += " `![ >"`4 + netid->m_value + "`!< ]``";
                     auto pos = var.find("posXY");
                     if (pos && pos->m_values.size() >= 2) {
                         auto x = atoi(pos->m_values[0].c_str());
@@ -1384,7 +1430,7 @@ bool events::in::variantlist(gameupdatepacket_t* packet) {
                 g_server->send(true, varlist, -1, -1);
                 if (automsg == true) {
                     try {
-                        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
                         g_server->send(false, "action|input\n|text|/msg " + ply.name + messagelolos);
                     } catch (std::exception) { gt::send_log("Critical Error : Invalid String Position"); }
                 }
