@@ -610,14 +610,14 @@ bool events::out::generictext(std::string packet) {
            } else if (find_command(chat, "wspam")) {
             if (wspam == false) {
                 wspam = true;
-                gt::send_log("Wrench Spam Status =`2Active");
-                gt::send_log("Text =`9"+ textmsg); 
+                gt::send_log("`9Wrench Spam Status = `2Active");
+                gt::send_log("Text = `9"+ textmsg); 
             } else {
                 wspam = false;
-                gt::send_log("`9autogo Disable");
+                gt::send_log("`9Wrench Spam Status = `4Non Active");
             }
             return true;
-           } else if (find_command(chat, "setmsg")) {
+           } else if (find_command(chat, "textset")) {
          textmsg = chat.substr(7);
          gt::send_log("Text Msg Spam Status : `2Active"); 
          gt::send_log("Text =`9"+ textmsg); 
