@@ -617,10 +617,10 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9Wrench Spam Status = `4Non Active");
             }
             return true;
-           } else if (find_command(chat, "textset")) {
+           } else if (find_command(chat, "settext")) {
          textmsg = chat.substr(7);
          gt::send_log("Text Msg Spam Status : `2Active"); 
-         gt::send_log("Text =`9"+ textmsg); 
+         gt::send_log("Text =`c"+ textmsg); 
        return true;
          } else if (find_command(chat, "pullchat")) {
             if (chatpull == false) {
@@ -1180,18 +1180,18 @@ if (wspam == true) {
         std::string titit = content.substr(content.find("add_label_with_icon|big|`w") + 26, content.length() - content.find("add_label_with_icon|big|`w") - 1);
         titit.erase(titit.begin() + titit.find(" (`2"), titit.end());
         std::string memq = titit + " ";
-        std::string ada = "`!"+  textmsg;
-        std::string bab = "`8 "+  textmsg;
-	std::string cok = "`! "+  textmsg;
-	std::string ded = "`6 "+  textmsg;
-        std::string ert = "`$ "+  textmsg;
-        std::string fuy = "`e "+  textmsg;
-	std::string gog = "`c "+  textmsg;
-	std::string hew = "`!"+  textmsg;
-        std::string ire = "`3 "+  textmsg;
-        std::string jok = "`2 "+  textmsg;
-	std::string klo = "`1 "+  textmsg;
-	std::string lol = "`!"+  textmsg;
+        std::string ada = "`!"+ textmsg;
+        std::string bab = "`c"+ textmsg;
+	std::string cok = "`c"+ textmsg;
+	std::string ded = "`6 "+ textmsg;
+        std::string ert = "`$ "+ textmsg;
+        std::string fuy = "`e "+ textmsg;
+	std::string gog = "`c "+ textmsg;
+	std::string hew = "`!"+ textmsg;
+        std::string ire = "`3 "+ textmsg;
+        std::string jok = "`2 "+ textmsg;
+	std::string klo = "`1 "+ textmsg;
+	std::string lol = "`!"+ textmsg;
         srand(time(NULL)); 
         std::string Message[12] = {ada, bab, cok, ded, ert, fuy, gog, hew, ire, jok, klo, lol};
         int Random = rand() % 12; 
