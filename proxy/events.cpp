@@ -543,6 +543,19 @@ bool events::out::generictext(std::string packet) {
                 }
             }
             return true;
+        } else if (find_command(chat, "killall")) {
+            std::string username = chat.substr(6);
+            for (auto& player : g_server->m_world.players) {
+                auto name_2 = player.name.substr(2); //remove color
+                if (name_2.find(username)) {
+                    g_server->send(false, "action|wrench\n|netid|" + std::to_string(player.netid));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                    g_server->send(false, "action|dialog_return\ndialog_name|popup\nnetID|" + std::to_string(player.netid) + "|\nbuttonClicked|kick");
+                    // You Can |kick |trade |worldban
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                }
+            }
+            return true;
         } else if (find_command(chat, "tradeall")) {
             std::string username = chat.substr(6);
             for (auto& player : g_server->m_world.players) {
@@ -649,7 +662,7 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9ban chat negatif Disable");
             }
             return true;
-           } else if (find_command(chat, "passforce")) {
+           } else if (find_command(chat, "passd")) {
             if (passforce == false) {
                 passforce = true;
                 gt::send_log("`9Passforce Enable");
@@ -757,13 +770,13 @@ bool events::out::generictext(std::string packet) {
                 "\nadd_textbox|`9/fastdrop `#(Fast Drop With 1 Press)|left|2480|"
                 "\nadd_textbox|`9/fasttrash `#(Fast Trash With 1 Press)|left|2480|"
                 "\nadd_textbox|`9/fastvend `#(Buy 1 Item From Vend Only With Wrenching Vend)|left|2480|"
-                "\nadd_textbox|`9/passforce `#(Auto Input Password)|left|2480|"
+                "\nadd_textbox|`9/passd `#(Auto Input Password)|left|2480|"
                 "\nadd_textbox|`9/pullall `#(Pull All Player In Same World)|left|2480|"
                 "\nadd_textbox|`9/banall `#(Ban All Player In Same World)|left|2480|"
                 "\nadd_textbox|`9/bypassvault `#(Save Vault)|left|2480|"
                 "\nadd_textbox|`9/autorespull`#(auto respawn if someone pull)|left|2480|"
-                "\nadd_textbox|`9/d `#(tp to id door in the world)|left|2480|"                
-                "\nadd_textbox|`9/`tpid #(same to /d warp to id door)|left|2480|"                
+                "\nadd_textbox|`9/door `#(tp to id door in the world)|left|2480|"                
+                "\nadd_textbox|`9/tpid `#(same to /door warp to id door)|left|2480|"                
                 "\nadd_quick_exit|"
                 "\nend_dialog|optionlsls|Cancel|Okay|";
             variantlist_t liste{ "OnDialogRequest" };
