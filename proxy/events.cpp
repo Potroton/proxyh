@@ -662,7 +662,7 @@ bool events::out::generictext(std::string packet) {
                 gt::send_log("`9ban chat negatif Disable");
             }
             return true;
-           } else if (find_command(chat, "passd")) {
+           } else if (find_command(chat, "passforce")) {
             if (passforce == false) {
                 passforce = true;
                 gt::send_log("`9Passforce Enable");
